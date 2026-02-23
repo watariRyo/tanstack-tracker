@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: tracker-db
+    restart: always
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_DB: "tracker"
+      POSTGRES_HOST: "localhost"
+      POSTGRES_PORT: "5432"
+      POSTGRES_PASSWORD: "postgres"
