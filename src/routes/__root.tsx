@@ -13,7 +13,7 @@ import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { Toaster } from 'sonner';
 import { Header } from '@/components/header';
-import { getSignedInUserId } from '@/data/getSignedInUserId';
+import { getSignedInUserId } from '@/data/get-signed-in-user-id';
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({

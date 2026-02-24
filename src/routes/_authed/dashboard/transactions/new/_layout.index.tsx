@@ -7,8 +7,8 @@ import {
 	type transactionFormSchema,
 } from '@/components/transaction-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { createTransaction } from '@/data/createTransaction';
-import { getCategories } from '@/data/getCategories';
+import { createTransaction } from '@/data/create-transaction';
+import { getCategories } from '@/data/get-categories';
 
 export const Route = createFileRoute(
 	'/_authed/dashboard/transactions/new/_layout/',

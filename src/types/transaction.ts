@@ -1,5 +1,3 @@
-import type { CategoryDto } from './category';
-
 /**
  * type of transaction DTO
  */
@@ -10,7 +8,23 @@ export interface TransactionDto {
 	amount: number;
 	transactionDate: Date;
 	categoryId: number;
-	category?: CategoryDto; // リレーション情報
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface TransactionGetByMonthDto {
+	id: number;
+	description: string;
+	amount: number;
+	transactionDate: Date;
+	category: string;
+	transactionType: 'income' | 'expense';
+}
+
+export interface TransactionGetByIdDto {
+	id: number;
+	description: string;
+	amount: number;
+	transactionDate: Date;
+	categoryId: number;
 }

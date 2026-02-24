@@ -42,11 +42,19 @@ export const transactionFormSchema = z.object({
 interface TransactionFormProps {
 	categories: CategoryDto[];
 	onSubmit: (data: z.infer<typeof transactionFormSchema>) => Promise<void>;
+	defaultValues?: {
+		transactionType?: 'income' | 'expense';
+		categoryId?: number;
+		transactionDate?: Date;
+		amount?: number;
+		description?: string;
+	};
 }
 
 export function TransactionForm({
 	categories,
 	onSubmit,
+	defaultValues,
 }: TransactionFormProps) {
 	const formId = useId();
 	const transactionTypeId = useId();
@@ -61,6 +69,7 @@ export function TransactionForm({
 			transactionDate: new Date(),
 			amount: 0,
 			description: '' as string | undefined,
+			...defaultValues,
 		},
 		validators: {
 			onChange: transactionFormSchema,
@@ -228,7 +237,7 @@ export function TransactionForm({
 										onChange={(e) => field.handleChange(Number(e.target.value))}
 										onBlur={field.handleBlur}
 										type="number"
-										step={0.01}
+										step={1}
 										aria-invalid={isInvalid}
 									/>
 								</Field>

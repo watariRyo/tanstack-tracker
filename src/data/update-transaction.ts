@@ -5,9 +5,10 @@ import z from 'zod';
 import authMiddleware from '@/auth-middleware';
 import { getDb } from '@/database/database';
 import type { Database } from '@/database/types';
+import { toTransactionDto } from '@/types/transaction-mapper';
 
-export const transactionSchema = z.object({
-	transactionType: z.enum(['income', 'expense']),
+const schema = z.object({
+	id: z.number(),
 	categoryId: z.number().positive('Please select a category.'),
 	transactionDate: z.string().refine((value) => {
 		const parsedDate = new Date(value);
@@ -24,35 +25,42 @@ export const transactionSchema = z.object({
 		.or(z.literal('')),
 });
 
-export const createTransaction = createServerFn({
+export const updateTransaction = createServerFn({
 	method: 'POST',
 })
 	.middleware([authMiddleware])
-	.inputValidator((data: z.infer<typeof transactionSchema>) => {
-		return transactionSchema.parse(data);
+	.inputValidator((data: z.infer<typeof schema>) => {
+		return schema.parse(data);
 	})
-	.handler(async ({ data, context }) => {
+	.handler(async ({ context, data }) => {
 		const userId = context.userId;
 		const db = getDb();
-		let trx: ControlledTransaction<Database, []> | undefined = undefined;
+
+		let trx: ControlledTransaction<Database, []> | undefined;
 		try {
 			trx = db.isTransaction
 				? (db as ControlledTransaction<Database, []>)
 				: await db.startTransaction().execute();
-			const [insertTransaction] = await trx
-				.insertInto('transactions')
-				.values({
-					user_id: userId,
-					description: data.description,
+			const [updateTransaction] = await trx
+				.updateTable('transactions')
+				.set({
 					amount: data.amount,
 					transaction_date: new Date(data.transactionDate),
 					category_id: data.categoryId,
+					description: data.description,
 				})
+				.where((eb) =>
+					eb.and([eb('id', '=', data.id), eb('user_id', '=', userId)]),
+				)
 				.returningAll()
 				.execute();
 			await trx.commit().execute();
 
-			return insertTransaction;
+			if (!updateTransaction) {
+				return null;
+			}
+
+			return toTransactionDto(updateTransaction);
 		} catch (error) {
 			if (trx) {
 				await trx.rollback().execute();
