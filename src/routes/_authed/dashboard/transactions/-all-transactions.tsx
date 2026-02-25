@@ -54,7 +54,7 @@ export function AllTransactions({
 							</SelectTrigger>
 							<SelectContent>
 								{Array.from({ length: 12 }).map((_, i) => (
-									// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+									// biome-ignore lint/suspicious/noArrayIndexKey: stable index in controlled list
 									<SelectItem key={i} value={`${i + 1}`}>
 										{format(new Date(selectedDate.getFullYear(), i, 1), 'MMM')}
 									</SelectItem>
