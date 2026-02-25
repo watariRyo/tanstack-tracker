@@ -32,6 +32,9 @@ export function Header() {
 					showName
 					appearance={{
 						elements: {
+							userButtonAvatarBox: {
+								border: '1px solid white',
+							},
 							userButtonOuterIdentifier: {
 								color: 'white',
 							},

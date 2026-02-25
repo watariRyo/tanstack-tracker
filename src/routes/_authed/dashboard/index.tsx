@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import z from 'zod';
+import LoadingSkeleton from '@/components/loading-skeleton';
 import { getRecentTransactions } from '@/data/get-recent-transactions';
 import { getTransactionByYearsRange } from '@/data/get-transaction-by-years-range';
 import { getAnnualCashflow } from '@/data/getAnnualCashflow';
@@ -18,6 +19,12 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/_authed/dashboard/')({
+	pendingComponent: () => (
+		<div className="max-w-7xl mx-auto py-5">
+			<h1 className="text-4xl font-semibold">Dashboard</h1>
+			<LoadingSkeleton />
+		</div>
+	),
 	validateSearch: searchSchema,
 	beforeLoad: ({ context }) => {
 		if (!context.userId) {

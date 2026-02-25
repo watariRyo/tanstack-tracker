@@ -17,6 +17,8 @@ import { getSignedInUserId } from '@/data/get-signed-in-user-id';
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
+	pendingMs: 0,
+	pendingComponent: () => <div></div>,
 	notFoundComponent() {
 		return (
 			<div className="text-3xl text-center py-10 text-muted-foreground">
