@@ -20,13 +20,13 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import type { TransactionGetByMonthDto } from '@/types/transaction';
+import type { TransactionGetWithCategoryDto } from '@/types/transaction';
 
 interface AllTransactionProps {
 	yearsRange: number[];
 	month: number;
 	year: number;
-	transactions: TransactionGetByMonthDto[];
+	transactions: TransactionGetWithCategoryDto[];
 }
 
 export function AllTransactions({

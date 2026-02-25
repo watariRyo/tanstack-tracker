@@ -12,7 +12,7 @@ export interface TransactionDto {
 	updatedAt: Date;
 }
 
-export interface TransactionGetByMonthDto {
+export interface TransactionGetWithCategoryDto {
 	id: number;
 	description: string;
 	amount: number;
@@ -28,3 +28,9 @@ export interface TransactionGetByIdDto {
 	transactionDate: Date;
 	categoryId: number;
 }
+
+export type CashFlowDto = {
+	month: number;
+	income: number;
+	expense: number;
+};

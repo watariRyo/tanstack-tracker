@@ -5,7 +5,7 @@ import type {
 import type {
 	TransactionDto,
 	TransactionGetByIdDto,
-	TransactionGetByMonthDto,
+	TransactionGetWithCategoryDto,
 } from '@/types/transaction';
 import type { CategoryType } from './category';
 
@@ -34,9 +34,9 @@ export function toTransactionDtos(
 	return dbTransactions.map(toTransactionDto);
 }
 
-export function toTransactionGetByMonthDto(
+export function toTransactionGetWithCategoryDto(
 	dbTransaction: TransactionWithCategory,
-): TransactionGetByMonthDto {
+): TransactionGetWithCategoryDto {
 	return {
 		id: dbTransaction.id,
 		description: dbTransaction.description,
@@ -47,10 +47,10 @@ export function toTransactionGetByMonthDto(
 	};
 }
 
-export function toTransactionGetByMonthDtos(
+export function toTransactionGetWithCategoryDtos(
 	dbTransactions: TransactionWithCategory[],
-): TransactionGetByMonthDto[] {
-	return dbTransactions.map(toTransactionGetByMonthDto);
+): TransactionGetWithCategoryDto[] {
+	return dbTransactions.map(toTransactionGetWithCategoryDto);
 }
 
 export function toTransactionGetByIdDto(

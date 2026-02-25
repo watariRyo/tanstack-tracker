@@ -32,6 +32,7 @@ export interface TransactionsTable {
 	updated_at: ColumnType<Date, string | undefined, never>;
 }
 
+// TODO DB側での型定義不要...
 export type TransactionWithCategory = {
 	id: number;
 	amount: number;
